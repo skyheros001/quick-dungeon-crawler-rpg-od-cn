@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="./assets/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/rpg-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <title>Quick Dungeon Crawler on Demand!</title>
+    <style>
+		body {
+			background: #000000;
+		}
+    </style>
+</head>
+<body>
+    <main>
+        <!-- ===== Rooms ===== -->
+        <!-- Title Screen -->
+        <section id="title-screen" class="game-container">
+            <div>
+                <img src="assets/icon/logo.webp">
+                <h1>地下城英雄！</h1>
+            </div>
+            <p>点击探索地下城</p>
+        </section>
+
+        <!-- Character Creation -->
+        <section id="character-creation" class="game-container">
+            <form id="name-submit">
+                <h1>输入你的名字</h1>
+                <input type="text" id="name-input" autocomplete="off" value="天线宝宝">
+                <p id="alert"></p>
+                <button type="submit">确认</button>
+            </form>
+        </section>
+
+        <!-- Hub -->
+        <section id="dungeon-main" class="game-container scrollable">
+            <header>
+                <p id="player-name"></p>
+                <p id="player-exp"></p>
+                <p id="player-gold"></p>
+                <button onclick="openInventory()"><i class="fas fa-bars" style="font-size: 1.3rem;"></i></button>
+            </header>
+            <div class="stat-panel">
+                <div class="box">
+                    <h4>状态</h4>
+                    <p><i class="fas fa-heart"></i>生命: <span id="player-hp"></span></p>
+                    <p><i class="ra ra-sword"></i>攻击: <span id="player-atk"></span></p>
+                    <p><i class="ra ra-round-shield"></i>防御: <span id="player-def"></span></p>
+                    <p><i class="ra ra-plain-dagger"></i>攻速: <span id="player-atkspd"></span></p>
+                    <p><i class="ra ra-dripping-blade"></i>吸血: <span id="player-vamp"></span></p>
+                    <p><i class="ra ra-lightning-bolt"></i>暴击: <span id="player-crate"></span></p>
+                    <p><i class="ra ra-focused-lightning"></i>暴伤: <span id="player-cdmg"></span></p>
+                </div>
+                <div class="box" id="bonus-stats"></div>
+            </div>
+            <div class="dungeon-head">
+                <p id="dungeonTime"></p>
+                <p id="floorCount"></p>
+                <p id="roomCount"></p>
+                <button id="dungeonActivity"></button>
+            </div>
+            <div class="logBox primary-panel">
+                <p id="dungeonAction"></p>
+                <div id="dungeonLog"></div>
+            </div>
+        </section>
+
+        <!-- ===== Utility ===== -->
+        <div id="loading" class="game-container">
+            <div class="loader"></div>
+        </div>
+
+        <!-- ===== Modals ===== -->
+        <div class="modal-container" id="inventory">
+            <div class="content">
+                <div class="content-head">
+                    <h3>物品栏</h3>
+                    <p onclick="closeInventory()"><i class="fa fa-xmark"></i></p>
+                </div>
+                <div class="content-head">
+                    <button id="sell-all">卖</button>
+                    <select id="sell-rarity">
+                        <option class="Common" value="Common">普通</option>
+                        <option class="Uncommon" value="Uncommon">蓝装</option>
+                        <option class="Rare" value="Rare">稀有</option>
+                        <option class="Epic" value="Epic">史诗</option>
+                        <option class="Legendary" value="Legendary">传奇</option>
+                        <option class="Heirloom" value="Heirloom">暗金</option>
+                        <option class="Common" value="All">全部</option>
+                    </select>
+                </div>
+                <div class="inventorySlots" id="playerInventory"></div>
+                <div class="stat-panel">
+                    <div class="box">
+                        <div class="box-head">
+                            <h4>装备</h4>
+                            <p id="unequip-all"><i class="fa fa-circle-xmark"></i></p>
+                        </div>
+                        <div id="playerEquipment"></div>
+                    </div>
+                </div>
+                <button id="menu-btn">菜单</button>
+            </div>
+        </div>
+        <div class="modal-container" id="equipmentInfo"></div>
+        <div class="modal-container" id="combatPanel"></div>
+        <div class="modal-container" id="lvlupPanel">
+            <div class="content" id="lvlupSelect"></div>
+        </div>
+        <div class="modal-container" id="defaultModal"></div>
+        <div class="modal-container" id="menuModal"></div>
+        <div class="modal-container" id="confirmationModal"></div>
+    </main>
+	<script src="./assets/js/howler.min.js"></script>
+    <script src="./assets/js/utility.js"></script>
+    <script src="./assets/js/elements.js"></script>
+    <script src="./assets/js/music.js"></script>
+    <script src="./assets/js/player.js"></script>
+    <script src="./assets/js/equipment.js"></script>
+    <script src="./assets/js/combat.js"></script>
+    <script src="./assets/js/dungeon.js"></script>
+    <script src="./assets/js/enemy.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script>
+    if (typeof navigator.serviceWorker !== 'undefined') {
+        navigator.serviceWorker.register('sw.js')
+    }
+    </script>
+</body>
+</html>
