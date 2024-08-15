@@ -19,6 +19,96 @@
 		body {
 			background: #000000;
 		}
+        
+.dice-one::before {
+    content: "\e997";  /* 对应骰子1的图标 */
+    font-family: 'RPGAwesome';
+    font-size: 24px;   /* 设置图标大小，可以根据需要调整 */
+    color: inherit;    /* 继承父元素的颜色，可以自行调整 */
+}
+
+.dice-two::before {
+    content: "\e99a";  /* 对应骰子2的图标 */
+    font-family: 'RPGAwesome';
+    font-size: 24px;
+    color: inherit;
+}
+
+.dice-three::before {
+    content: "\e999";  /* 对应骰子3的图标 */
+    font-family: 'RPGAwesome';
+    font-size: 24px;
+    color: inherit;
+}
+
+.dice-four::before {
+    content: "\e996";  /* 对应骰子4的图标 */
+    font-family: 'RPGAwesome';
+    font-size: 24px;
+    color: inherit;
+}
+
+.dice-five::before {
+    content: "\e995";  /* 对应骰子5的图标 */
+    font-family: 'RPGAwesome';
+    font-size: 24px;
+    color: inherit;
+}
+
+.dice-six::before {
+    content: "\e998";  /* 对应骰子6的图标 */
+    font-family: 'RPGAwesome';
+    font-size: 24px;
+    color: inherit;
+}
+
+.dice-ea5c::before {
+    content: "\ea5c";  /* 对应其它排名的图标 */
+    font-family: 'RPGAwesome';
+    font-size: 24px;
+    color: inherit;
+}
+
+#ranks {
+    position: fixed; /* 固定定位，确保框体随屏幕滚动 */
+    top: 50%;        /* 垂直居中 */
+    left: 50%;       /* 水平居中 */
+    transform: translate(-50%, -50%); /* 将框体的中心点移动到屏幕中心 */
+    width: 350px;    /* 设置宽度为350px */
+    height: 600px;   /* 设置高度为600px */
+    padding: 20px;   /* 内边距 */
+    background-color: black; /* 设置背景颜色为黑色 */
+    border: 2px solid white; /* 设置白色边框 */
+    border-radius: 10px; /* 圆角半径，数值越大圆角越明显 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 添加阴影，使框体有浮动感 */
+    z-index: 1000; /* 设置较高的 z-index 确保框体浮在最前面 */
+}
+
+.ranks-container {
+    width: 98%;
+    display: flex;
+    justify-content: flex-start; /* 水平左对齐 */
+    align-items: flex-start; /* 垂直顶部对齐 */
+    flex-direction: column; /* 垂直排列 */
+    height: 100%; /* 确保 div 填满父容器的高度 */
+    padding: 0; /* 去除内边距 */
+}
+
+.rank-item {
+    display: flex; /* 使用flex布局 */
+    justify-content: flex-start; /* 内容左对齐 */
+    width: 100%; /* 使用100%宽度 */
+    padding: 5px 0; /* 每行上下内边距 */
+}
+
+.rank-name {
+    margin-right: auto; /* 在名称后添加自动外边距，使等级右对齐 */
+    padding-left: 3px;
+}
+
+.rank-level {
+    margin-left: 10px; /* 添加一些左边距，使名称和等级之间有间隔 */
+}
     </style>
 </head>
 <body>
@@ -69,6 +159,8 @@
                 <p id="floorCount"></p>
                 <p id="roomCount"></p>
                 <button id="dungeonActivity"></button>
+                <button id="hero_login">登陆</button><!--新增登陆-->
+                <button id="hero_rank">排行</button><!--新增-->
             </div>
             <div class="logBox primary-panel">
                 <p id="dungeonAction"></p>
@@ -113,6 +205,12 @@
                 <button id="menu-btn">菜单</button>
             </div>
         </div>
+
+        <div class="modal-container" id="herologin" style="border:1px solid white;background-color:black;padding:20px"></div><!--新增登陆-->
+        <div class="modal-container" id="ranks">
+        </div>
+        <!--新增排行-->
+        
         <div class="modal-container" id="equipmentInfo"></div>
         <div class="modal-container" id="combatPanel"></div>
         <div class="modal-container" id="lvlupPanel">
@@ -127,11 +225,11 @@
     <script src="./assets/js/elements.js"></script>
     <script src="./assets/js/music.js"></script>
     <script src="./assets/js/player.js"></script>
-    <script src="./assets/js/equipment.js?v=1.0.2"></script>
-    <script src="./assets/js/combat.js"></script>
-    <script src="./assets/js/dungeon.js"></script>
+    <script src="./assets/js/equipment.js?v=1.0.3"></script>
+    <script src="./assets/js/combat.js?v=1.0.7993"></script>
+    <script src="./assets/js/dungeon.js?v=1.0.7993"></script>
     <script src="./assets/js/enemy.js"></script>
-    <script src="./assets/js/main.js?v=1.0.2"></script>
+    <script src="./assets/js/main.js?v=1.0.7993"></script>
     <script>
     if (typeof navigator.serviceWorker !== 'undefined') {
         navigator.serviceWorker.register('sw.js')
